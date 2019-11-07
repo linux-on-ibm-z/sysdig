@@ -1,7 +1,8 @@
 language: c
 
-arch: s390x
 os: linux
+arch: s390x
+
 env:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
