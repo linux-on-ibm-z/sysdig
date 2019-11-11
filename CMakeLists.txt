@@ -100,7 +100,7 @@ option(USE_BUNDLED_DEPS "Enable bundled dependencies instead of using the system
 #
 # LuaJIT
 #
-option(USE_BUNDLED_LUAJIT "Enable building of the bundled LuaJIT" ${USE_BUNDLED_DEPS})
+#option(USE_BUNDLED_LUAJIT "Enable building of the bundled LuaJIT" ${USE_BUNDLED_DEPS})
 
 if(NOT USE_BUNDLED_LUAJIT)
 	find_path(LUAJIT_INCLUDE luajit.h PATH_SUFFIXES luajit-2.0 luajit)
