@@ -30,7 +30,6 @@ script:
     - cd ..
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
     # Install LuaJIT
     - git clone git://github.com/linux-on-ibm-z/LuaJIT.git
     - cd LuaJIT
@@ -38,6 +37,7 @@ script:
     - make
     - sudo make install
     - sudo ln -s luajit-2.1.0-beta3 /usr/local/bin/luajit
+    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
     - make VERBOSE=1
     - make package
     - cd ..
