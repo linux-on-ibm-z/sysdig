@@ -464,17 +464,32 @@ if(NOT WIN32 AND NOT APPLE)
 		set(PROTOC "${PROTOBUF_SRC}/target/bin/protoc")
 		set(PROTOBUF_INCLUDE "${PROTOBUF_SRC}/target/include")
 		set(PROTOBUF_LIB "${PROTOBUF_SRC}/target/lib/libprotobuf.a")
-		ExternalProject_Add(protobuf
-		DEPENDS openssl zlib
-		URL "http://download.sysdig.com/dependencies/protobuf-cpp-3.5.0.tar.gz"
-		URL_MD5 "e4ba8284a407712168593e79e6555eb2"
-		# TODO what if using system zlib?
-		CONFIGURE_COMMAND /usr/bin/env CPPFLAGS=-I${ZLIB_INCLUDE} LDFLAGS=-L${ZLIB_SRC} ./configure --with-zlib --prefix=${PROTOBUF_SRC}/target
-		BUILD_COMMAND ${CMD_MAKE}
-		BUILD_IN_SOURCE 1
-		BUILD_BYPRODUCTS ${PROTOC} ${PROTOBUF_INCLUDE} ${PROTOBUF_LIB}
-		# TODO s390x support
-		INSTALL_COMMAND make install)
+                if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "s390x")
+                        ExternalProject_Add(protobuf
+                        DEPENDS openssl zlib
+                        URL "http://download.sysdig.com/dependencies/protobuf-cpp-3.5.0.tar.gz"
+                        URL_MD5 "e4ba8284a407712168593e79e6555eb2"
+                        PATCH_COMMAND wget https://raw.githubusercontent.com/linux-on-ibm-z/protobuf/s390x-patch-atomicops/s390x-Release_CompareAndSwap.patch && patch -p0 -i s390x-Release_CompareAndSwap.patch
+                        # TODO what if using system zlib?
+                        CONFIGURE_COMMAND /usr/bin/env CPPFLAGS=-I${ZLIB_INCLUDE} LDFLAGS=-L${ZLIB_SRC} ./configure --with-zlib --prefix=${PROTOBUF_SRC}/target
+                        BUILD_COMMAND ${CMD_MAKE}
+                        BUILD_IN_SOURCE 1
+                        BUILD_BYPRODUCTS ${PROTOC} ${PROTOBUF_INCLUDE} ${PROTOBUF_LIB}
+                        # TODO s390x support
+                        INSTALL_COMMAND make install)
+                else()
+                        ExternalProject_Add(protobuf
+                        DEPENDS openssl zlib
+                        URL "http://download.sysdig.com/dependencies/protobuf-cpp-3.5.0.tar.gz"
+                        URL_MD5 "e4ba8284a407712168593e79e6555eb2"
+                        # TODO what if using system zlib?
+                        CONFIGURE_COMMAND /usr/bin/env CPPFLAGS=-I${ZLIB_INCLUDE} LDFLAGS=-L${ZLIB_SRC} ./configure --with-zlib --prefix=${PROTOBUF_SRC}/target
+                        BUILD_COMMAND ${CMD_MAKE}
+                        BUILD_IN_SOURCE 1
+                        BUILD_BYPRODUCTS ${PROTOC} ${PROTOBUF_INCLUDE} ${PROTOBUF_LIB}
+                        # TODO s390x support
+                        INSTALL_COMMAND make install)
+                endif()
 	endif()
 
 	option(USE_BUNDLED_GRPC "Enable building of the bundled grpc" ${USE_BUNDLED_DEPS})
