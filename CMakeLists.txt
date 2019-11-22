@@ -162,8 +162,9 @@ else()
                 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "s390x")
                         set(LUAJIT_LIB "${LUAJIT_SRC}/libluajit.a")
                         ExternalProject_Add(luajit
-                                URL "https://github.com/linux-on-ibm-z/LuaJIT/archive/v2.1.zip"
+                                URL "http://github.com/linux-on-ibm-z/LuaJIT/archive/v2.1.zip"
                                 URL_MD5 "c456bb922c4f9a9f9d0804efdf2a48f3"
+				PATCH_COMMAND sed -i "s/luaL_reg/luaL_Reg/g" ${PROJECT_SOURCE_DIR}/userspace/libsinsp/chisel.cpp && sed -i "s/luaL_reg/luaL_Reg/g" ${PROJECT_SOURCE_DIR}/userspace/libsinsp/lua_parser.cpp && sed -i "s/luaL_getn/lua_objlen /g" ${PROJECT_SOURCE_DIR}/userspace/libsinsp/lua_parser_api.cpp
                                 CONFIGURE_COMMAND ""
                                 BUILD_COMMAND ${CMD_MAKE}
                                 BUILD_IN_SOURCE 1
