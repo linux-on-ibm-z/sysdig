@@ -158,17 +158,29 @@ else()
 	set(LUAJIT_SRC "${PROJECT_BINARY_DIR}/luajit-prefix/src/luajit/src")
 	message(STATUS "Using bundled LuaJIT in '${LUAJIT_SRC}'")
 	set(LUAJIT_INCLUDE "${LUAJIT_SRC}")
-	if(NOT WIN32)
-		set(LUAJIT_LIB "${LUAJIT_SRC}/libluajit.a")
-		ExternalProject_Add(luajit
-			URL "http://download.draios.com/dependencies/LuaJIT-2.0.3.tar.gz"
-			URL_MD5 "f14e9104be513913810cd59c8c658dc0"
-			CONFIGURE_COMMAND ""
-			BUILD_COMMAND ${CMD_MAKE}
-			BUILD_IN_SOURCE 1
-			BUILD_BYPRODUCTS ${LUAJIT_LIB}
-			INSTALL_COMMAND "")
-	else()
+        if(NOT WIN32)
+                if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "s390x")
+                        set(LUAJIT_LIB "${LUAJIT_SRC}/libluajit.a")
+                        ExternalProject_Add(luajit
+                                URL "https://github.com/linux-on-ibm-z/LuaJIT/archive/v2.1.zip"
+                                URL_MD5 "c456bb922c4f9a9f9d0804efdf2a48f3"
+                                CONFIGURE_COMMAND ""
+                                BUILD_COMMAND ${CMD_MAKE}
+                                BUILD_IN_SOURCE 1
+                                BUILD_BYPRODUCTS ${LUAJIT_LIB}
+                                INSTALL_COMMAND "")
+                else()
+                        set(LUAJIT_LIB "${LUAJIT_SRC}/libluajit.a")
+                        ExternalProject_Add(luajit
+                                URL "http://download.draios.com/dependencies/LuaJIT-2.0.3.tar.gz"
+                                URL_MD5 "f14e9104be513913810cd59c8c658dc0"
+                                CONFIGURE_COMMAND ""
+                                BUILD_COMMAND ${CMD_MAKE}
+                                BUILD_IN_SOURCE 1
+                                BUILD_BYPRODUCTS ${LUAJIT_LIB}
+                                INSTALL_COMMAND "")
+                endif()
+        else()
 		set(LUAJIT_LIB "${LUAJIT_SRC}/lua51.lib")
 		ExternalProject_Add(luajit
 			URL "http://download.draios.com/dependencies/LuaJIT-2.0.3.tar.gz"
