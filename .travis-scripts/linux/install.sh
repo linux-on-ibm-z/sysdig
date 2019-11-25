@@ -17,5 +17,6 @@
 # limitations under the License.
 #
 sudo apt-get --force-yes install g++-4.8
-sudo apt-get install rpm linux-headers-$(uname -r) libelf-dev lua5.1 lua5.1-dev 
+#sudo apt-get install rpm linux-headers-$(uname -r) libelf-dev lua5.1 lua5.1-dev 
+sudo apt-get install rpm linux-headers-4.15.0 libelf-dev 
 sudo apt-get purge cmake
