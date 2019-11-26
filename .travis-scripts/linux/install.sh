@@ -24,5 +24,9 @@ mkdir travis_bin
 ln -s $(which gcc-4.8) travis_bin/gcc
 ln -s $(which g++-4.8) travis_bin/g++
 export PATH="${PWD}/travis_bin:${PATH}"
+echo $PATH
+echo $(gcc -dumpversion)
+gcc -v
+g++ -v
 sudo apt-get install rpm linux-headers-$(uname -r) libelf-dev
 sudo apt-get purge cmake
