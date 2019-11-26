@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 set -e
-if [[$(uname -i) == "s390x"]]; then
+if [[ $(uname -i) == "s390x" ]]; then
   export CC="gcc-7"
   export CXX="g++-7"
 else
