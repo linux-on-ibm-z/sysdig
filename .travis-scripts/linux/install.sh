@@ -16,17 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#sudo apt-get --force-yes install g++-4.8
-# For Bionic which fails due to error 
-# "g++-4.8: error: unrecognized command line option ‘-flifetime-dse=1’" 
-# added for gcc v>=6(gcc 7 picked up from base image).
-#mkdir travis_bin
-#ln -s $(which gcc-4.8) travis_bin/gcc
-#ln -s $(which g++-4.8) travis_bin/g++
-#export PATH="${PWD}/travis_bin:${PATH}"
-#echo $PATH
-#echo $(gcc -dumpversion)
-#gcc -v
-#g++ -v
+if [[$(uname -i) != "s390x"]]; then
+  sudo apt-get --force-yes install g++-4.8
+fi
 sudo apt-get install rpm linux-headers-$(uname -r) libelf-dev
 sudo apt-get purge cmake
