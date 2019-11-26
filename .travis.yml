@@ -1,4 +1,5 @@
-#
+
+dist: bionic#
 # Copyright (C) 2013-2018 Draios Inc dba Sysdig.
 #
 # This file is part of sysdig .
@@ -16,9 +17,17 @@
 # limitations under the License.
 #
 language: c
-os: linux
-arch: s390x
-dist: bionic
+matrix:
+  include:
+    - os: linux
+      arch: s390x
+      dist: bionic
+    - os: linux
+      arch: amd64
+      dist: bionic
+    - os: osx
+      arch: amd64
+      dist: bionic
 env:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
