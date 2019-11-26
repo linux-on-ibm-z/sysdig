@@ -1,5 +1,4 @@
-
-dist: bionic#
+#
 # Copyright (C) 2013-2018 Draios Inc dba Sysdig.
 #
 # This file is part of sysdig .
@@ -20,17 +19,19 @@ language: c
 matrix:
   include:
     - os: linux
+      env: 
+        - BUILD_TYPE=Debug
+        - BUILD_TYPE=Release
+    - os: osx
+      env: 
+        - BUILD_TYPE=Debug
+        - BUILD_TYPE=Release
+    - os: linux
       arch: s390x
       dist: bionic
-    - os: linux
-      arch: amd64
-      dist: bionic
-    - os: osx
-      arch: amd64
-      dist: bionic
-env:
-    - BUILD_TYPE=Debug
-    - BUILD_TYPE=Release
+      env: 
+        - BUILD_TYPE=Debug
+        - BUILD_TYPE=Release
 sudo: required
 services:
     - docker
