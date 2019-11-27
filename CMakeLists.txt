@@ -482,7 +482,7 @@ if(NOT WIN32 AND NOT APPLE)
                         DEPENDS openssl zlib
                         URL "http://download.sysdig.com/dependencies/protobuf-cpp-3.5.0.tar.gz"
                         URL_MD5 "e4ba8284a407712168593e79e6555eb2"
-                        PATCH_COMMAND wget http://download.sysdig.com/dependencies/protobuf-3.5.0-s390x.patch && patch < protobuf-3.5.0-s390x.patch
+                        PATCH_COMMAND wget http://download.sysdig.com/dependencies/protobuf-3.5.0-s390x.patch && patch -p1 -i protobuf-3.5.0-s390x.patch
                         # TODO what if using system zlib?
                         CONFIGURE_COMMAND /usr/bin/env CPPFLAGS=-I${ZLIB_INCLUDE} LDFLAGS=-L${ZLIB_SRC} ./configure --with-zlib --prefix=${PROTOBUF_SRC}/target
                         BUILD_COMMAND ${CMD_MAKE}
