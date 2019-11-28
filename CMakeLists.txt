@@ -489,7 +489,6 @@ if(NOT WIN32 AND NOT APPLE)
                         BUILD_COMMAND ${CMD_MAKE}
                         BUILD_IN_SOURCE 1
                         BUILD_BYPRODUCTS ${PROTOC} ${PROTOBUF_INCLUDE} ${PROTOBUF_LIB}
-                        # TODO s390x support
                         INSTALL_COMMAND make install)
                 else()
                         ExternalProject_Add(protobuf
@@ -501,7 +500,6 @@ if(NOT WIN32 AND NOT APPLE)
                         BUILD_COMMAND ${CMD_MAKE}
                         BUILD_IN_SOURCE 1
                         BUILD_BYPRODUCTS ${PROTOC} ${PROTOBUF_INCLUDE} ${PROTOBUF_LIB}
-                        # TODO s390x support
                         INSTALL_COMMAND make install)
                 endif()
 	endif()
